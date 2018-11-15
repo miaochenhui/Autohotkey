@@ -19,6 +19,9 @@
  SetBatchLines -1
  ;Menu, Tray, Icon,C:\Users\Administrator\Desktop\1.ico, ,1
 
+switch = 0
+switch_keyboard = 0
+
 /*
 ╔═══════════════════════════════════════════════════════════════╗
 ║	                       <<<<退出提示>>>>                     ║
@@ -182,7 +185,7 @@ CapsLock  & d & s::
 */	
 
 ;----------------------------------------窗口最大化和还原
-switch = 0
+;switch = 0
 <!g::
 	if switch = 0
 	{
@@ -713,12 +716,32 @@ CapsLock  & k::send ,{down}
 CapsLock  & j::send ,{left}
 CapsLock  & l::send ,{right}
 
+/*
 ;----------------------------------------禁止键盘和鼠标输入
-::mmforbidinput::
+;::mmforbidinput::
+::mmclean::
     BlockInput, on
     return 
 ;----------------------------------------禁止键盘和鼠标输入(解除)
+::mmcleanoff::
+    BlockInput, off
+    return 
+	
+*/
 
+;switch_keyboard = 0
+~#Esc::
+    if switch_keyboard = 0
+    {
+        BlockInput, on
+        switch_keyboard = 1
+        return
+    }else{
+        BlockInput, off
+        switch_keyboard = 0
+        return
+    }
+    return
 
 ;---------------------------------------- 打开/关闭,键盘状态灯
 ::mmcsl::
